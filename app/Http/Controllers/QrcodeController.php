@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Qrcode;
 use Illuminate\Http\Request;
+use Redirect;
 
 class QrcodeController extends Controller
 {
@@ -13,7 +15,9 @@ class QrcodeController extends Controller
      */
     public function index()
     {
-        return view('qrcode.list', []);
+        $data['qrcode'] = Qrcode::paginate(10);
+
+        return view('qrcode.list', $data);
     }
 
     /**
@@ -23,7 +27,7 @@ class QrcodeController extends Controller
      */
     public function create()
     {
-        return view('qrcode.new', []);
+        return view('qrcode.create');
     }
 
     /**
@@ -34,18 +38,25 @@ class QrcodeController extends Controller
      */
     public function store(Request $request)
     {
-        return 'creating';
+        $request->validate([
+          'title' => 'required|max:50',
+          'description' => 'required|max:255',
+      ]);
+
+        Qrcode::create($request->all());
+
+        return Redirect::to('qrcode')->with('success', 'Great! Qrcode created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Qrcode  $qrcode
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Qrcode $qrcode)
     {
-        return view('qrcode.show', ['id'=>$id]);
+        //
     }
 
     /**
@@ -56,7 +67,10 @@ class QrcodeController extends Controller
      */
     public function edit($id)
     {
-        return view('qrcode.edit', ['id'=>$id]);
+        $where = array('id' => $id);
+        $data['qrcode_info'] = Qrcode::where($where)->first();
+
+        return view('qrcode.edit', $data);
     }
 
     /**
@@ -68,7 +82,16 @@ class QrcodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'updated';
+        $request->validate([
+          'title' => 'required|max:50',
+          'description' => 'required|max:255',
+      ]);
+
+        $update = ['title' => $request->title, 'description' => $request->description];
+        Qrcode::where('id', $id)->update($update);
+
+        return Redirect::to('qrcode')
+    ->with('success', 'Great! Qrcode updated successfully');
     }
 
     /**
@@ -79,6 +102,8 @@ class QrcodeController extends Controller
      */
     public function destroy($id)
     {
-        return 'deleted';
+        Qrcode::where('id', $id)->delete();
+
+        return Redirect::to('qrcode')->with('success', 'Qrcode deleted successfully');
     }
 }

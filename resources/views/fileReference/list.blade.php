@@ -6,7 +6,7 @@
     <h2>Elixr</h2>
    </div>
    <div class="col-md-2">
-    <a href="{{ route('qrcode.create') }}" class="btn btn-danger">Add qrcode</a>
+    <a href="{{ route('fileReference.create') }}" class="btn btn-danger">Add fileReference</a>
    </div>
    <br><br>
     @if ($message = Session::get('success'))
@@ -35,16 +35,16 @@
           </tr>
        </thead>
        <tbody>
-          @foreach($qrcode as $qrcode)
+          @foreach($fileReference as $fileReference)
           <tr>
-             <td>{{ $qrcode->id }}</td>
-             <td>{{ $qrcode->title }}</td>
-             <td>{{ $qrcode->description }}</td>
-             <td>{{ date('d m Y', strtotime($qrcode->created_at)) }}</td>
-             <td><a href="{{ route('qrcode.edit',$qrcode->id)}}" class="btn btn-
+             <td>{{ $fileReference->id }}</td>
+             <td>{{ $fileReference->title }}</td>
+             <td>{{ $fileReference->description }}</td>
+             <td>{{ date('d m Y', strtotime($fileReference->created_at)) }}</td>
+             <td><a href="{{ route('fileReference.edit',$fileReference->id)}}" class="btn btn-
                   primary">Edit</a></td>
                  <td>
-                <form action="{{ route('qrcode.destroy', $qrcode->id)}}" method="post">
+                <form action="{{ route('fileReference.destroy', $fileReference->id)}}" method="post">
                   {{ csrf_field() }}
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Delete</button>
@@ -54,7 +54,7 @@
           @endforeach
        </tbody>
     </table>
-    {{-- {!! $qrcode->links() !!} --}}
+    {{-- {!! $fileReference->links() !!} --}}
 </div>
 @endsection
 </div>

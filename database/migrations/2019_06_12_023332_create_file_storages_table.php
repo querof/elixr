@@ -15,10 +15,10 @@ class CreateFileStoragesTable extends Migration
     {
         Schema::create('file_storages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('file_references_id');
+            $table->unsignedBigInteger('file_reference_id');
             $table->binary('data_chunk');
             $table->timestamps();
-            $table->foreign('file_references_id')->references('id')->on('file_references')->onDelete('cascade');
+            $table->foreign('file_reference_id')->references('id')->on('file_references')->onDelete('cascade');
         });
     }
 

@@ -15,16 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('qrcode', 'QrcodeController@index');
+Route::resource('qrcode', 'QrcodeController');
 
-Route::get('qrcode/new', 'QrcodeController@create');
+Route::resource('fileReference', 'FileReferenceController');
 
-Route::get('qrcode/edit/{id}', 'QrcodeController@edit');
+// Route::resource('fileStorage', 'FileStorageController');
+Route::get('fileStorage', 'FileStorageController@index')->name('index');
 
-Route::get('qrcode/show/{id}', 'QrcodeController@show');
+Route::post('upload', 'FileStorageController@upload')->name('upload');
 
-Route::post('qrcode/store', 'QrcodeController@store');
+Route::get('download', 'FileStorageController@download')->name('download');
 
-Route::put('qrcode/update', 'QrcodeController@store');
+Route::get('rollback', 'FileStorageController@rollback')->name('rollback');
 
-Route::delete('qrcode/destroy', 'QrcodeController@destroy');
+Route::get('done', 'FileStorageController@done')->name('done');
