@@ -104,6 +104,7 @@ var jsonClass = function(options){
              formData: {fileReferenceId: 0,fileSize:0},
              done: function (e, data) {
                $.extend( vars, { URLarchivo: data.result.URLarchivo, error: 0});
+               window.location ='./fileReference/'+data.result.fileReferenceId+'/edit';
              },
              progressall: function (e, data) {
                        $.extend( vars, { porcentaje: parseInt(data.loaded / data.total * 100, 10) } );

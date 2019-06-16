@@ -9,6 +9,9 @@
                 <ul class="nav nav-second-level">
                     <li><a href="{{ route('qrcode.index') }}">QRCode</a></li>
                 </ul>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ route('fileReference.index') }}">Media</a></li>
+                </ul>
             </li>
 
 

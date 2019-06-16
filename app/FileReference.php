@@ -9,6 +9,7 @@ class FileReference extends Model
     protected $fillable = [
            'name',
            'mime',
+           'description',
           ];
 
     /**

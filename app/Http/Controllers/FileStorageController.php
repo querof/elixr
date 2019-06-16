@@ -36,7 +36,7 @@ class FileStorageController extends Controller
             $fileReference = new FileReference();
             $fileReference->name = $file->getClientOriginalName();
             $fileReference->mime = $file->getMimeType();
-            $fileReference->size = $request->fileSize;
+            $fileReference->description = $file->getClientOriginalName();
             $fileReference->save();
         }
 
@@ -44,13 +44,6 @@ class FileStorageController extends Controller
         $fileStorage->data_chunk= base64_encode(file_get_contents($file));
         $fileReference->fileStorage()->save($fileStorage);
         $fileStorage->save();
-
-        // DB::table('file_storage')->insert(
-        //       array(
-        //       'data_chunk'=>file_get_contents($file),
-        //       'fileReference'=>$fileReference,
-        //       )
-        //   );
 
         return response()->json(array('fileReferenceId' => $fileReference->id,'fr'=>$fileReference,'frid'=>$request->fileReferenceId), 200);
     }

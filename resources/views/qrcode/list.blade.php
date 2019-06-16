@@ -1,30 +1,31 @@
-@extends('layout')
+@extends('list')
 
-@section('content')
-<div class="row mt40">
-   <div class="col-md-10">
-    <h2>Elixr</h2>
-   </div>
-   <div class="col-md-2">
-    <a href="{{ route('qrcode.create') }}" class="btn btn-danger">Add qrcode</a>
-   </div>
-   <br><br>
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Opps!</strong> Something went wrong<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+@section('list')
+
+  <div class="col-md-10">
+   <h2>Elixr</h2>
+  </div>
+  <div class="col-md-3">
+   <a href="{{ route('qrcode.create') }}" class="btn btn-danger">Add qrcode</a>
+  </div>
+  <br><br>
+   @if ($message = Session::get('success'))
+       <div class="alert alert-success">
+           <p>{{ $message }}</p>
+       </div>
    @endif
-    <table class="table table-bordered" id="laravel_crud">
+   @if ($errors->any())
+   <div class="alert alert-danger">
+       <strong>Opps!</strong> Something went wrong<br><br>
+       <ul>
+           @foreach ($errors->all() as $error)
+               <li>{{ $error }}</li>
+           @endforeach
+       </ul>
+   </div>
+  @endif
+
+    <table class="table table-striped table-bordered table-hover dataTables-example" id="laravel_crud">
        <thead>
           <tr>
              <th>Id</th>
@@ -55,6 +56,5 @@
        </tbody>
     </table>
     {{-- {!! $qrcode->links() !!} --}}
-</div>
+
 @endsection
-</div>

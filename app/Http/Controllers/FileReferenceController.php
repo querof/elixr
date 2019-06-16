@@ -38,29 +38,12 @@ class FileReferenceController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required|max:50',
-        //     'mime' => 'required|max:255',
-        // ]);
+        $request->validate([
+            'name' => 'required|max:50',
+            'mime' => 'required|max:255',
+        ]);
         var_dump($request->files);
         $fileReference = FileReference::create($request->all());
-
-        // $where = array('id' => $request->id);
-        // $fileReference = FileReference::where($where)->first();
-        //
-        // if($fileReference===null)
-        // {
-        //   $fileReference = new FileReference();
-        //   $fileReference->name = $request->name;
-        //   $fileReference->description = $request->description;
-        //   $fileReference->mime = $request->files->getMimeType();
-        //   $fileReference->save();
-        //   // $fileReference = FileReference::create($request->all());
-        // }
-
-        // $fileStorage = new FileStorage();
-        // $fileStorage->data_chunk=file_get_contents($request->files);
-        // $fileStorage->save();
 
         return Redirect::to('fileReference')->with('success', 'Great! fileReference created successfully.');
     }
@@ -100,11 +83,11 @@ class FileReferenceController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-        'name' => 'required|max:50',
-        'mime' => 'required|max:255',
+        'name' => 'required|max:255',
+        'description' => 'required|max:255',
     ]);
 
-        $update = ['name' => $request->name, 'mime' => $request->mime];
+        $update = ['name' => $request->name,'description' => $request->description];
         FileReference::where('id', $id)->update($update);
 
         return Redirect::to('fileReference')

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Laravel 5.7 CRUD Application With Example - Tutsmake.com</title>
+    <title>EliXr</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
     <link href="{{ asset('templates/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('templates/font-awesome/css/font-awesome.css') }}" rel="stylesheet">

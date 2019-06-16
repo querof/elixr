@@ -20,7 +20,7 @@ Route::resource('qrcode', 'QrcodeController');
 Route::resource('fileReference', 'FileReferenceController');
 
 // Route::resource('fileStorage', 'FileStorageController');
-Route::get('fileStorage', 'FileStorageController@index')->name('index');
+Route::get('fileStorage', 'FileStorageController@index')->name('fileStorage.index');
 
 Route::post('upload', 'FileStorageController@upload')->name('upload');
 

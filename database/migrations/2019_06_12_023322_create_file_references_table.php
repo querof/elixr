@@ -17,7 +17,7 @@ class CreateFileReferencesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name',255);
             $table->text('mime');
-            $table->float('size',15,5);
+            $table->text('description'); 
             $table->timestamps();
         });
     }

@@ -1,12 +1,12 @@
-@extends('layout')
+@extends('list')
 
-@section('content')
-<div class="row mt40">
+@section('list')
+
    <div class="col-md-10">
-    <h2>Elixr</h2>
+    <h2>Elixr - Media File List</h2>
    </div>
-   <div class="col-md-2">
-    <a href="{{ route('fileReference.create') }}" class="btn btn-danger">Add fileReference</a>
+   <div class="col-md-3">
+    <a href="{{ route('fileStorage.index') }}" class="btn btn-danger">Add Media File</a>
    </div>
    <br><br>
     @if ($message = Session::get('success'))
@@ -29,7 +29,7 @@
           <tr>
              <th>Id</th>
              <th>Title</th>
-             <th>Description</th>
+             <th>Mime Type</th>
              <th>Created at</th>
              <td colspan="2">Action</td>
           </tr>
@@ -38,8 +38,8 @@
           @foreach($fileReference as $fileReference)
           <tr>
              <td>{{ $fileReference->id }}</td>
-             <td>{{ $fileReference->title }}</td>
-             <td>{{ $fileReference->description }}</td>
+             <td>{{ $fileReference->name }}</td>
+             <td>{{ $fileReference->mime }}</td>
              <td>{{ date('d m Y', strtotime($fileReference->created_at)) }}</td>
              <td><a href="{{ route('fileReference.edit',$fileReference->id)}}" class="btn btn-
                   primary">Edit</a></td>
@@ -55,6 +55,5 @@
        </tbody>
     </table>
     {{-- {!! $fileReference->links() !!} --}}
-</div>
+
 @endsection
-</div>
