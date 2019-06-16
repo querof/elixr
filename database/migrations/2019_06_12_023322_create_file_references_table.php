@@ -15,9 +15,10 @@ class CreateFileReferencesTable extends Migration
     {
         Schema::create('file_references', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name',50);
+            $table->string('name',255);
             $table->text('mime');
-            $table->timestamps();            
+            $table->float('size',15,5);
+            $table->timestamps();
         });
     }
 

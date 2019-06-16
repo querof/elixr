@@ -25,6 +25,8 @@ var newjsonClass = {};
   */
 function fileSender(debug,cancelar,idUpload)
 {
+  // input = $('#fileReferenceId');
+  // input.val(null);
   if(idUpload==0){
     idUpload =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);// Math.floor(Math.random() * 6) + 1;
     newjsonClass[idUpload] = new jsonClass({ idUpload: idUpload, error: 1, porcentaje: 0 });

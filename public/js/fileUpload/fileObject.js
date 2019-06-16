@@ -29,13 +29,14 @@ var jsonClass = function(options){
     *      este es utlizado por Jquery para tomar el archivo.
     * @var xhr objeto que contiene el hilo de colunicación entre el servidor y jquery,
     *      a traves de el se puede cancelar el proceso.
-    * @var rarId representa el PK de la tabla referencias_archivos.
+    * @var fileReferenceId representa el PK de la tabla referencias_archivos.
     */
 
    var root = this;
    var fileInput;
    var xhr;
-   var rarId = null;
+   var fileReferenceId = null;
+   var fileSize = null;
 
    /**
     * Constructor de la clase, inicializa el proceso
@@ -95,12 +96,12 @@ var jsonClass = function(options){
 
    var crearInput = function(){
      fileInput = $('<input id="fileupload" type="file" name="files[]" data-url="'+uploadPath+'"   style="display: none">');
-     // fileInput = $('#files[]');
+
      return $(function () {
           $(fileInput).fileupload({
-             dataType: 'json',
+             // dataType: 'json',
              maxChunkSize: maxChunkSize,
-             xhrFields: {withCredentials: true},
+             formData: {fileReferenceId: 0,fileSize:0},
              done: function (e, data) {
                $.extend( vars, { URLarchivo: data.result.URLarchivo, error: 0});
              },
@@ -109,15 +110,14 @@ var jsonClass = function(options){
                    },
              fail: function(e,data){
                 $.extend( vars, { error: -3 });
-                $.getJSON(rollbackPath+'/'+rarId, function (result){console.log(result.mensaje);});
+                $.getJSON(rollbackPath+'/'+fileReferenceId, function (result){console.log(result.mensaje);});
              }
          }).bind('fileuploadadd', function (e, data) {
                var error = 1;
-               $.getJSON(donePath, function (result)
-               {
-                    console.log(result.mensaje);
-               });
+               $.extend( data.formData, { fileSize: data.files.size } );
                xhr = data.submit();
+
+
                if(data.files.size > maxFileSize)
                {
                  error = -2;
@@ -131,7 +131,9 @@ var jsonClass = function(options){
              $.extend( vars, { nombreArchivo: fileName, ext: fileName.substr(fileName.lastIndexOf('.'))});
            })
            .on('fileuploadchunkdone', function (e, data) {
-                 rarId = data.result.rarId;
+                 fileReferenceId = data.result.fileReferenceId;
+                 $.extend( data.formData, { fileReferenceId: fileReferenceId } );
+
                });
      });
    }

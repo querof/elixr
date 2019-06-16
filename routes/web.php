@@ -24,7 +24,7 @@ Route::get('fileStorage', 'FileStorageController@index')->name('index');
 
 Route::post('upload', 'FileStorageController@upload')->name('upload');
 
-Route::get('download', 'FileStorageController@download')->name('download');
+Route::get('download/{id}', 'FileStorageController@download')->name('download');
 
 Route::get('rollback', 'FileStorageController@rollback')->name('rollback');
 

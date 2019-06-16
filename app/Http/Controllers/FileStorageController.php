@@ -28,28 +28,31 @@ class FileStorageController extends Controller
     {
         $files = $request->file('files');
         $file = $files[0];
-// dd($file1);
-        $request->files;
 
-        $where = array('id' => $request->id);
+        $where = array('id' => $request->fileReferenceId);
         $fileReference = FileReference::where($where)->first();
 
-        if($fileReference===null)  {
-          $fileReference = new FileReference();
-          $fileReference->name = $file->getClientOriginalName();
-          $fileReference->mime = $file->getMimeType();
-          $fileReference->save();
+        if (collect($fileReference)->isEmpty()) {
+            $fileReference = new FileReference();
+            $fileReference->name = $file->getClientOriginalName();
+            $fileReference->mime = $file->getMimeType();
+            $fileReference->size = $request->fileSize;
+            $fileReference->save();
         }
-        // $fileReference = FileReference::create($request->all());
-
 
         $fileStorage = new FileStorage();
-        $fileStorage->data_chunk=file_get_contents($file);
-
+        $fileStorage->data_chunk= base64_encode(file_get_contents($file));
         $fileReference->fileStorage()->save($fileStorage);
-        // $fileStorage->save();
+        $fileStorage->save();
 
-        return response()->json(array('files' => $fileReference->id), 200);
+        // DB::table('file_storage')->insert(
+        //       array(
+        //       'data_chunk'=>file_get_contents($file),
+        //       'fileReference'=>$fileReference,
+        //       )
+        //   );
+
+        return response()->json(array('fileReferenceId' => $fileReference->id,'fr'=>$fileReference,'frid'=>$request->fileReferenceId), 200);
     }
 
     /**
@@ -57,9 +60,16 @@ class FileStorageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function download()
+    public function download($fileReferenceId)
     {
-        //
+        $where = array('id' => $fileReferenceId);
+        $fileReference = FileReference::where($where)->first();
+
+        $where = array('file_reference_id' => $fileReference->id);
+        $fileStorage = FileStorage::where($where)->get(['id', 'file_reference_id']);
+
+        $this->streamResponse($fileReference, $fileStorage);
+        // return response();
     }
 
     /**
@@ -84,5 +94,51 @@ class FileStorageController extends Controller
     public function rollback()
     {
         //
+    }
+
+
+    /**
+     * Método que busca en la tabla almacen_a_achivos un registro en particular
+     * usando para ello el PK (aar_id/AarId).
+     *
+     * @param String $key valor del PK del chunk a buscar.
+     * @return Object AlmacenArchivos $almacenArchivos.
+     */
+    private function searchFileStorageByPK($id)
+    {
+        $where = array('id' => $id);
+        $fileStorage = FileStorage::where($where)->first();
+
+        return base64_decode($fileStorage->data_chunk);
+    }
+
+    /**
+   * Método que trasmite desde el servidor Web cada chunk asociado a un archivo. Para ellos busca cada chunk
+   * por separado en la base de datos, lo trasmite y limpia el buffer.
+   *
+   * @param $almacenArchivos Array, contiene todos los aar_id correspondientes a un indice en específico.
+   * @return Chunks al buffer.
+   */
+    private function streamResponse($fileReference, $fileStorage)
+    {
+        header("Content-Type: ".$fileReference->mime);
+        header('Content-Disposition: attachment; filename="'.$fileReference->name.'" ');
+        // header('Content-length='.$fileReference->size);
+
+        foreach ($fileStorage as $key => $value) {
+            echo $this->searchFileStorageByPK($value->id);
+            ob_flush();
+            flush();
+        }
+    }
+
+    private function file_get_contents_utf8($fn)
+    {
+        $content = file_get_contents($fn);
+        return mb_convert_encoding(
+            $content,
+            'UTF-8',
+            mb_detect_encoding($content, 'UTF-8, ISO-8859-1', true)
+        );
     }
 }

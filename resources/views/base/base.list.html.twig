@@ -1,0 +1,96 @@
+{% extends '::base.bootstrap.html.twig' %}
+
+{% block cssmodulo %}
+	<link href="{{ asset('templates/css/plugins/dataTables/datatables.min.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body -%}
+
+	{% set controller_title =  'List -> Hotels'  %}
+		   <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Database -> {{controller_title}}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+	                    <div class="table-responsive">
+														{% block data %}
+
+	                          {% endblock %}
+							 				</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block javascriptmodulo %}
+  <script>
+			var searchValue = '{}';
+			var jsonRoute = '/hotel/getjson/';
+			var xmlRoute = '/hotel/getxml/';
+			var importRoute = '/hotel/importdata';
+			var jsonValue;
+			var remote;
+
+	</script>
+	<script src="{{ asset('templates/js/plugins/dataTables/datatables.min.js') }}"></script>
+    <!-- Page-Level Scripts -->
+		{% if (data is empty) == false %}
+		    <script>
+		        $(document).ready(function()
+						{
+		            $('.dataTables-example').DataTable({
+		                pageLength: 10,
+		                responsive: true,
+		                dom: '<"html5buttons"B>lTfgitp',
+		                buttons: [
+		                    { extend: 'copy'},
+		                    {extend: 'csv'},
+		                    {extend: 'excel', title: 'Data in Excel'},
+		                    {extend: 'pdf', title: 'Data in PDF'},
+
+		                    {extend: 'print',
+		                     customize: function (win){
+		                            $(win.document.body).addClass('white-bg');
+		                            $(win.document.body).css('font-size', '10px');
+
+		                            $(win.document.body).find('table')
+		                                    .addClass('compact')
+		                                    .css('font-size', 'inherit');
+		                    	}
+		                    }
+		                ],
+		            });
+
+								$('.dataTables-example').on('search.dt', function()
+								{
+
+										var value = $('.dataTables_filter input').val();
+
+										if(value.length > 0 )
+										{
+												jsonValue = '{"name":"'+value+'","address":"'+value+'","contact":"'+value+'","phone":"'+value+'","uri":"'+value+'"}/{}';
+										}
+										else
+										{
+												jsonValue = '{}/{}';
+										}
+								});
+		        });
+		    </script>
+		{% endif %}
+		<script>
+			var route_index = "{{ path('hotel_index')|escape('js') }}";
+		</script>
+
+		<script src="{{ asset('js/modal.js') }}" > </script>
+
+{% endblock %}

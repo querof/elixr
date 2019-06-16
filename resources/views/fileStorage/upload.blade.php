@@ -27,18 +27,11 @@
 
  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <div class="row">
-      {{-- <div class="col-md-12">
-            <div class="form-group">
-                <input id="fileupload" type="file" name="files[]" data-url="{{route('fileReference.store')}}" multiple>
-                <div id="dropzone" class="fade well">Drop files here</div>
-            </div>
-        </div> --}}
+    <div class="row">       
         <div class="col-md-12">
             <button id="save" type="buton" class="btn btn-primary">Save</button>
         </div>
     </div>
-    
 @endsection
 
 @section('jsmodule')
@@ -47,8 +40,8 @@
 <script src="{{ asset('js/jQuery-File-Upload/js/jquery.iframe-transport.js') }}"></script>
 <script src="{{ asset('js/jQuery-File-Upload/js/jquery.fileupload.js') }}"></script>
 <script>
-    var maxFileSize = '{{config('upload.MAX_FILE_SIZE')}}';
-    var maxChunkSize = '{{config('upload.MAX_CHUNK_SIZE')}}';
+    var maxFileSize = {{config('upload.MAX_FILE_SIZE')}};
+    var maxChunkSize = {{config('upload.MAX_CHUNK_SIZE')}};
 
     var uploadPath = '{{route('upload')}}';
     var donePath = '{{route('done')}}';

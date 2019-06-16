@@ -8,6 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Laravel 5.7 CRUD Application With Example - Tutsmake.com</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+    <link href="{{ asset('templates/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('templates/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('templates/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('templates/css/style.css') }}" rel="stylesheet">
     <style>
         .mt40 {
             margin-top: 40px;
@@ -16,12 +21,30 @@
     @yield('cssmodule')
 </head>
 
-<body>
+<body class="fixed-sidebar">
+    <div id="wrapper">
+        @include('menu')
+        	<div id="page-wrapper" class="gray-bg">
+              @include('horizontalbar')
+              @include('route')
+        <div class="container">
+            @yield('content')
+        </div>
+        <!-- Mainly scripts -->
+        <script src="{{ asset('templates/js/jquery-3.1.1.min.js') }}"></script>
+        <script src="{{ asset('templates/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('templates/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+        <script src="{{ asset('templates/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
-    <div class="container">
-        @yield('content')
+        <!-- Custom and plugin javascript -->
+        <script src="{{ asset('templates/js/inspinia.js') }}"></script>
+        <script src="{{ asset('templates/js/plugins/pace/pace.min.js') }}"></script>
+
+
+        @include('footer')
+        @yield('jsmodule')
     </div>
-    @yield('jsmodule')
+    </div>
 </body>
 
 </html>
