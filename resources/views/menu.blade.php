@@ -16,7 +16,7 @@
 
 
             <li class="landing_link">
-                <a target="_blank" href=""><i class="fa fa-star"></i> <span class="nav-label">Data Pipe</span> <span class="label label-warning pull-right">Hire me!</span></a>
+                <a target="_blank" href=""><i class="fa fa-star"></i> <span class="nav-label">EliXr</span> <span class="label label-warning pull-right">Hire me!</span></a>
             </li>
             <li class="special_link">
                 <a href=""><i class="fa fa-database"></i> <span class="nav-label">Main Option</span></a>

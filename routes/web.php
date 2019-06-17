@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'QrcodeController@index')->name('qrcode.index');
 
 Route::get('qrcode', 'QrcodeController@index')->name('qrcode.index');
 Route::get('qrcode/create', 'QrcodeController@create')->name('qrcode.create');
