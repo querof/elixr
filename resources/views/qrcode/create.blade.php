@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('form')
 
-@section('content')
+@section('form_data')
 
 <div class="row">
     <div class="col-lg-12 mt40">
@@ -10,16 +10,6 @@
     </div>
 </div>
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> Something went wrong<br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <form action="{{ route('qrcode.store') }}" method="POST" name="add_qrcode">
     {{ csrf_field() }}
@@ -40,7 +30,8 @@
             </div>
         </div>
         <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>{{' '}}Save</button>
+          <a href="{{ route('qrcode.index')}}" class="btn"><i class="fa fa-list"></i>{{' '}}Back to List</a></a>
         </div>
     </div>
 

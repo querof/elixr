@@ -24,26 +24,25 @@
 <body class="fixed-sidebar">
     <div id="wrapper">
         @include('menu')
-        	<div id="page-wrapper" class="gray-bg">
-              @include('horizontalbar')
-              @include('route')
-        <div class="container">
+        <div id="page-wrapper" class="gray-bg">
+            @include('horizontalbar')
+            @include('route')
             @yield('content')
+
+            <!-- Mainly scripts -->
+            <script src="{{ asset('templates/js/jquery-3.1.1.min.js') }}"></script>
+            <script src="{{ asset('templates/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('templates/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+            <script src="{{ asset('templates/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="{{ asset('templates/js/inspinia.js') }}"></script>
+            <script src="{{ asset('templates/js/plugins/pace/pace.min.js') }}"></script>
+
+
+            @include('footer')
+            @yield('jsmodule')
         </div>
-        <!-- Mainly scripts -->
-        <script src="{{ asset('templates/js/jquery-3.1.1.min.js') }}"></script>
-        <script src="{{ asset('templates/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('templates/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-        <script src="{{ asset('templates/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-        <!-- Custom and plugin javascript -->
-        <script src="{{ asset('templates/js/inspinia.js') }}"></script>
-        <script src="{{ asset('templates/js/plugins/pace/pace.min.js') }}"></script>
-
-
-        @include('footer')
-        @yield('jsmodule')
-    </div>
     </div>
 </body>
 

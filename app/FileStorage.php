@@ -12,7 +12,7 @@ class FileStorage extends Model
           ];
 
     /**
-     * Get the comments for the blog post.
+     * Get the File reference for the Actually data of the file.
      */
     public function fileReferences()
     {

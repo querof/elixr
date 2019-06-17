@@ -15,17 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('qrcode', 'QrcodeController');
+Route::get('qrcode', 'QrcodeController@index')->name('qrcode.index');
+Route::get('qrcode/create', 'QrcodeController@create')->name('qrcode.create');
+Route::post('qrcode', 'QrcodeController@store')->name('qrcode.store');
+Route::get('qrcode/{id}/edit', 'QrcodeController@edit')->name('qrcode.edit');
+Route::match(['put', 'patch'],'qrcode/{id}', 'QrcodeController@update')->name('qrcode.update');
+Route::delete('qrcode/{id}', 'QrcodeController@destroy')->name('qrcode.destroy');
 
-Route::resource('fileReference', 'FileReferenceController');
+Route::get('fileReference', 'FileReferenceController@index')->name('fileReference.index');
+Route::post('fileReference', 'FileReferenceController@store')->name('fileReference.store');
+Route::get('fileReference/{id}/edit', 'FileReferenceController@edit')->name('fileReference.edit');
+Route::match(['put', 'patch'],'fileReference/{id}', 'FileReferenceController@update')->name('fileReference.update');
+Route::delete('fileReference/{id}', 'FileReferenceController@destroy')->name('fileReference.destroy');
 
-// Route::resource('fileStorage', 'FileStorageController');
+
+Route::post('qrcodeFileReference', 'QrcodeFileReferenceController@store')->name('qrcodeFileReference.store');
+Route::get('qrcodeFileReference/{id}/edit', 'QrcodeFileReferenceController@edit')->name('qrcodeFileReference.edit');
+Route::delete('qrcodeFileReference/{id}', 'QrcodeFileReferenceController@destroy')->name('qrcodeFileReference.destroy');
+
 Route::get('fileStorage', 'FileStorageController@index')->name('fileStorage.index');
 
 Route::post('upload', 'FileStorageController@upload')->name('upload');
 
 Route::get('download/{id}', 'FileStorageController@download')->name('download');
-
-Route::get('rollback', 'FileStorageController@rollback')->name('rollback');
-
-Route::get('done', 'FileStorageController@done')->name('done');

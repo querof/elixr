@@ -3,27 +3,14 @@
 @section('list')
 
    <div class="col-md-10">
-    <h2>Elixr - Media File List</h2>
+    <h2>Elixr - Media File</h2>
    </div>
    <div class="col-md-3">
-    <a href="{{ route('fileStorage.index') }}" class="btn btn-danger">Add Media File</a>
+    <button id="save" type="buton" class="btn btn-primary"><i class="fa fa-plus-square"></i>{{' '}}Add Media File</button>
+    <br><br>
    </div>
    <br><br>
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Opps!</strong> Something went wrong<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-   @endif
+
     <table class="table table-bordered" id="laravel_crud">
        <thead>
           <tr>
@@ -42,7 +29,7 @@
              <td>{{ $fileReference->mime }}</td>
              <td>{{ date('d m Y', strtotime($fileReference->created_at)) }}</td>
              <td><a href="{{ route('fileReference.edit',$fileReference->id)}}" class="btn btn-
-                  primary">Edit</a></td>
+                  primary">  <i class="fa fa-edit">Edit</a></td>
                  <td>
                 <form action="{{ route('fileReference.destroy', $fileReference->id)}}" method="post">
                   {{ csrf_field() }}
@@ -54,6 +41,21 @@
           @endforeach
        </tbody>
     </table>
-    {{-- {!! $fileReference->links() !!} --}}
 
+@endsection
+
+@section('jsmodule')
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ asset('js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js') }}"></script>
+<script src="{{ asset('js/jQuery-File-Upload/js/jquery.iframe-transport.js') }}"></script>
+<script src="{{ asset('js/jQuery-File-Upload/js/jquery.fileupload.js') }}"></script>
+<script>
+    var maxFileSize = {{config('upload.MAX_FILE_SIZE')}};
+    var maxChunkSize = {{config('upload.MAX_CHUNK_SIZE')}};
+
+    var uploadPath = '{{route('upload')}}';
+ 
+</script>
+<script src="{{ asset('js/fileUpload/fileObject.js') }}"></script>
+<script src="{{ asset('js/fileUpload/fileSender.js') }}"></script>
 @endsection

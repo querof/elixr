@@ -48,16 +48,6 @@ class QrcodeController extends Controller
         return Redirect::to('qrcode')->with('success', 'Great! Qrcode created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Qrcode  $qrcode
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Qrcode $qrcode)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,8 +80,7 @@ class QrcodeController extends Controller
         $update = ['title' => $request->title, 'description' => $request->description];
         Qrcode::where('id', $id)->update($update);
 
-        return Redirect::to('qrcode')
-    ->with('success', 'Great! Qrcode updated successfully');
+        return Redirect::to('qrcode')->with('success', 'Great! Qrcode updated successfully');
     }
 
     /**

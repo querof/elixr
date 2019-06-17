@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>3rdILab's EliXr</h2>
+        <h2>3rDi Lab's EliXr</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="index.html"> Home </a>
@@ -15,3 +15,5 @@
     </div>
 
 </div>
+
+@include('message')

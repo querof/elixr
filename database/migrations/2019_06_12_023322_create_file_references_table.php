@@ -16,8 +16,8 @@ class CreateFileReferencesTable extends Migration
         Schema::create('file_references', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',255);
-            $table->text('mime');
-            $table->text('description'); 
+            $table->string('mime');
+            $table->string('description',500); 
             $table->timestamps();
         });
     }

@@ -10,4 +10,21 @@ class QrCodeFileReference extends Model
            'qrcodes_id',
            'file_references_id',
           ];
+
+
+    /**
+     * Get the Qrcode for the relationship with File reference.
+     */
+    public function qrcode()
+    {
+        return $this->belongsTo('App\Qrcode');
+    }
+
+    /**
+     * Get the File reference for the relationship with Qrcode.
+     */
+    public function fileReferences()
+    {
+        return $this->belongsTo('App\FileReference');
+    }
 }

@@ -10,4 +10,12 @@ class Qrcode extends Model
              'title',
              'description',
             ];
+
+    /**
+     * Get the Media for the QrCode.
+     */
+    public function qrcodeFileReference()
+    {
+        return $this->hasMany('App\QrcodeFileReference');
+    }
 }
