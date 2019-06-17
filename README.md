@@ -32,11 +32,11 @@ In the file app\config\upload.php you can change MAX_FILE_SIZE and MAX_CHUNK_SIZ
 
 ###Tasks :
 1) build a page to generate QR code , below is the link you can refer to :
-https://www.kerneldev.com/2018/09/07/qr-codes-in-laravel-complete-guide/ _* Donne! *_
-2) Build a page to upload images and store details in database _* Donne! *_
-3) Build a page to link the generated QR and the Image _* Donne! *_
-4) Build a page to display all the QR generated _* Donne! *_
-5) Build a page to list the images attached to a single QR _* Donne! *_
+https://www.kerneldev.com/2018/09/07/qr-codes-in-laravel-complete-guide/ _* Done! *_
+2) Build a page to upload images and store details in database _* Done! *_
+3) Build a page to link the generated QR and the Image _* Done! *_
+4) Build a page to display all the QR generated _* Done! *_
+5) Build a page to list the images attached to a single QR _* Done! *_
 
 ###Bonus
 - Clean blade template manage: layout, bootstrap/bootstrap theme. Modular approach easy to maintain.
